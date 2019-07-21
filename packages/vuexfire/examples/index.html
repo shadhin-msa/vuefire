@@ -26,17 +26,10 @@
 
     <div id="app">
       <button @click="toggleTodos">Toggle todos</button> <br />
-      <input
-        v-model.trim="newTodoText"
-        @keyup.enter="addTodo"
-        placeholder="Add new todo"
-      />
+      <input v-model.trim="newTodoText" @keyup.enter="addTodo" placeholder="Add new todo" />
       <ul>
         <li v-for="todo in todos">
-          <input
-            :value="todo.text"
-            @input="updateTodoText(todo, $event.target.value)"
-          />
+          <input :value="todo.text" @input="updateTodoText(todo, $event.target.value)" />
           <button @click="removeTodo(todo)">X</button>
         </li>
       </ul>
@@ -92,7 +85,7 @@
 
         actions: {
           bindRef: firestoreAction(function(context, payload) {
-            context.bindFirestoreRef(payload.name, payload.ref)
+            context.bindFirestoreRef(payload.name, payload.ref, payload.options)
           }),
 
           init: firestoreAction(function(context) {
@@ -131,8 +124,7 @@
             todos.doc(todo.id).delete()
           },
           toggleTodos: function() {
-            currentTodos =
-              currentTodos === unFinishedTodos ? finishedTodos : unFinishedTodos
+            currentTodos = currentTodos === unFinishedTodos ? finishedTodos : unFinishedTodos
             this.$store.dispatch('bindRef', {
               name: 'todos',
               ref: currentTodos,
