@@ -48,7 +48,7 @@ export default new Vuex.Store({
   actions: {
     bindTodos: firestoreAction(({ bindFirestoreRef }) => {
       // return the promise returned by `bindFirestoreRef`
-      return bindFirestoreRef('todos', db.collection('documents'))
+      return bindFirestoreRef('documents', db.collection('documents'))
     })
   }
 }
